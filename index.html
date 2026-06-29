@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JH ONE 디지털 명함</title>
+    <!-- 깔끔한 고딕 서체 (프리텐다드) 로드 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 로고 바탕색과 100% 일치 */
+            background-color: #020685;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* 글래스모피즘 명함 카드 */
+        .card-container {
+            width: 100%;
+            max-width: 390px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 35px 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        /* 상단 중앙 로고 이미지 영역 */
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo-img {
+            max-width: 150px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* [요청 반영] 간결해진 파일명 기반 3분할 갤러리 */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        .gallery-item {
+            width: 100%;
+            height: 95px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* 프로필 정보 */
+        .profile-info {
+            margin-bottom: 25px;
+        }
+        .name {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .job {
+            display: inline-block;
+            font-size: 13.5px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.18);
+            padding: 6px 16px;
+            border-radius: 50px;
+            color: #79d2ff;
+            letter-spacing: 0.5px;
+        }
+
+        /* 슬로건 한마디 */
+        .slogan-box {
+            background: rgba(0, 0, 0, 0.18);
+            border-left: 4px solid #79d2ff;
+            padding: 14px;
+            border-radius: 0 12px 12px 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+            text-align: left;
+            word-break: keep-all;
+        }
+
+        /* 상세 연락 정보 목록 */
+        .info-list {
+            text-align: left;
+            margin-bottom: 35px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 20px 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+        .info-label {
+            width: 75px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            flex-shrink: 0;
+        }
+        .info-value {
+            color: #ffffff;
+            word-break: keep-all;
+        }
+        .info-value a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        /* 하단 액션 버튼 그룹 */
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .btn-primary {
+            background: #ffffff;
+            color: #1a2d83;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-primary:active {
+            background: rgba(255, 255, 255, 0.85);
+            transform: scale(0.98);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-secondary:active {
+            background: rgba(255, 255, 255, 0.18);
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <!-- 상단 로고 이미지 -->
+        <div class="logo-wrapper">
+            <img src="logo.png" alt="JH ONE 제이에이치원 로고" class="logo-img">
+        </div>
+
+        <!-- [변경 반영] 심플해진 파일명으로 연결된 사진 3장 구역 -->
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="1.jpeg" alt="창고 야외 전경 1" class="gallery-img">
+            </div>
+            <div class="gallery-item">
+                <img src="2.jpg" alt="창고 내부 시설" class="gallery-img">
+            </div>
+            <div class="gallery-item">
+                <img src="3.jpeg" alt="창고 야외 전경 2" class="gallery-img">
+            </div>
+        </div>
+
+        <!-- 프로필 정보 -->
+        <div class="profile-info">
+            <h1 class="name">최 준 호</h1>
+            <p class="job">컨테이너보관 · 물류보관 · 창고임대</p>
+        </div>
+
+        <!-- 한마디 슬로건 -->
+        <div class="slogan-box">
+            "믿고 맡기는 안전한 물류보관창고 제이에이치원"
+        </div>
+
+        <!-- 연락처 및 정보 박스 -->
+        <div class="info-list">
+            <div class="info-item">
+                <div class="info-label">연락처</div>
+                <div class="info-value"><a href="tel:010-5280-6871">010-5280-6871</a></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">주소</div>
+                <div class="info-value">경기 양주시 은현면 화합로1169번길 72-46</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">웹사이트</div>
+                <div class="info-value"><a href="http://jhone.co.kr" target="_blank">jhone.co.kr</a></div>
+            </div>
+        </div>
+
+        <!-- 모바일 액션 버튼 -->
+        <div class="btn-group">
+            <a href="tel:010-5280-6871" class="btn btn-primary">전화 걸기</a>
+            <a href="http://jhone.co.kr" target="_blank" class="btn btn-secondary">홈페이지 방문</a>
+        </div>
+    </div>
+
+</body>
+</html>
